@@ -39,9 +39,9 @@ output() {
     local hashsum=${2/ */}
 
     if [[ -n $HASHSUM && $HASHSUM == $hashsum ]]; then
-	found=" *"
+        found=" *"
     else
-	found=""
+        found=""
     fi
 
     printf "%-24s %s%s\n" $tag $hashsum "$found"
@@ -56,11 +56,11 @@ while read hashc; do
 
     filelist="$hashc:$MAINPROG"
     if [[ $OLDCALC -eq 0 ]]; then
-	filelist2="$hashc:$MAINPROG-setup"
-	# Check the setup file exists in this (potentially old) commit
-	if git cat-file -t "$filelist2" &>/dev/null; then
-	    filelist="$filelist $filelist2"
-	fi
+        filelist2="$hashc:$MAINPROG-setup"
+        # Check the setup file exists in this (potentially old) commit
+        if git cat-file -t "$filelist2" &>/dev/null; then
+            filelist="$filelist $filelist2"
+        fi
     fi
 
     output $tag "$(git show $filelist | $SUMPROG)"
@@ -70,8 +70,8 @@ done <<< "$(git rev-list --all --reverse)"
 tagw=$(git describe --tags --always --dirty)
 if [[ $tagw != $tag ]]; then
     if [[ $OLDCALC -eq 0 ]]; then
-	output $tagw "$(cat $MAINPROG $MAINPROG-setup | $SUMPROG)"
+        output $tagw "$(cat $MAINPROG $MAINPROG-setup | $SUMPROG)"
     else
-	output $tagw "$($SUMPROG <$MAINPROG)"
+        output $tagw "$($SUMPROG <$MAINPROG)"
     fi
 fi

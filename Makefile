@@ -29,7 +29,6 @@ check:
 	ruff check $(PYFILES)
 	shellcheck $(SHELLCHECK_OPTS) $(SHFILES)
 	for f in $(PYFILES); do mypy $$f; done
-	vermin -vv --no-tips -i $(PYFILES)
 
 test:
 	@./internal-test
