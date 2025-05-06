@@ -17,6 +17,8 @@ import threading
 from pathlib import Path
 from time import monotonic
 
+VERSION = '2.80'
+
 dbus_imported = True
 try:
     import dbus  # type: ignore
@@ -836,7 +838,10 @@ def main():
         '-l',
         '--list',
         action='store_true',
-        help='just list out environment and configuration',
+        help='just show environment and configuration',
+    )
+    opt.add_argument(
+        '-V', '--version', action='store_true', help='just show program version'
     )
     opt.add_argument(
         '--device', help='explicit device name to use (or path if starts with /)'
@@ -845,6 +850,10 @@ def main():
     # device output to parse
     opt.add_argument('--device-list', help=argparse.SUPPRESS)
     args = opt.parse_args()
+
+    if args.version:
+        print(f'{PROGNAME} version {VERSION}')
+        sys.exit()
 
     if args.debug or args.raw or args.list:
         args.verbose = True
@@ -876,7 +885,7 @@ def main():
         print(f'{PROGNAME}: {xstr} on {pf}, {pfpy}, {lstr}')
 
         # Output hash version/checksum of this program
-        print(f'Hash: {gethash()}')
+        print(f'Version = {VERSION}, hash = {gethash()}')
 
     # Read and process the conf file
     confname = read_conf(args.conffile, CONFNAME)
