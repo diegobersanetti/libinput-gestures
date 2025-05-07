@@ -16,19 +16,17 @@ SHELLCHECK_OPTS = -eSC2053,SC2064,SC2086,SC1117,SC2162,SC2181,SC2034,SC1090,SC21
 PYFILES = libinput-gestures internal internal-test
 SHFILES = libinput-gestures-setup list-version-hashes libinput-dummy
 
-all:
-	@echo "Type sudo make install|uninstall"
+check:
+	ruff check $(PYFILES)
+	for f in $(PYFILES); do mypy $$f; done
+	pyright $(PYFILES)
+	shellcheck $(SHELLCHECK_OPTS) $(SHFILES)
 
 install:
 	@./libinput-gestures-setup -d "$(DESTDIR)" install
 
 uninstall:
 	@./libinput-gestures-setup -d "$(DESTDIR)" uninstall
-
-check:
-	ruff check $(PYFILES)
-	shellcheck $(SHELLCHECK_OPTS) $(SHFILES)
-	for f in $(PYFILES); do mypy $$f; done
 
 test:
 	@./internal-test
