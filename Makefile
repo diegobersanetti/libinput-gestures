@@ -21,6 +21,7 @@ check:
 	for f in $(PYFILES); do mypy $$f; done
 	pyright $(PYFILES)
 	shellcheck $(SHELLCHECK_OPTS) $(SHFILES)
+	md-link-checker
 
 install:
 	@./libinput-gestures-setup -d "$(DESTDIR)" install

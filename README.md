@@ -34,8 +34,9 @@ https://github.com/bulletmark/libinput-gestures.
 
 ### INSTALLATION
 
-You need _python_ 3.8 or later, _python2_ is not supported. You also need
-_libinput_ release 1.0 or later.
+You need Python 3.8 or later, Python2 is not supported. You need the `libinput`
+package. The `libinput_tools` package must be installed if your system packages
+the tools separately.
 
 You **must be a member of the _input_ group** to have permission
 to read the touchpad device:
@@ -71,11 +72,6 @@ them. If you are unsure initially, install both of them.
 
 NOTE: Arch users can now just install [_libinput-gestures from the
 AUR_][AUR]. Then skip to the next CONFIGURATION section.
-
-Debian and Ubuntu users may also need to install `libinput-tools` if
-that package exists in your release:
-
-    sudo apt-get install libinput-tools
 
 Install this software:
 
@@ -283,9 +279,9 @@ duplicates those gestures to 4 finger gestures so you can't use them for
 libinput-gestures unless you do one of the following to disable 3 finger
 gestures in GNOME.
 
-1. Install the [_Disable 3 Finger
-   Gestures_](https://extensions.gnome.org/extension/7403/disable-3-finger-gestures/)
-   GNOME shell extension (recommended).
+1. Install the [_Disable 3 Finger Gestures_](https://extensions.gnome.org/extension/7403/disable-3-finger-gestures/)
+   GNOME shell extension. Note, this extension
+   [does not work correctly since GNOME 49](https://github.com/lxp-git/disable-three-finger/issues/5).
 
 2. Patch `gnome-shell` to stop it using 3 finger gestures using this
    [patch script](https://gist.github.com/bulletmark/0630478f98363adf584bbcfe8e527cb1).
@@ -451,7 +447,7 @@ version.
 This program is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-Public License at <https://en.wikipedia.org/wiki/GNU_General_Public_License> for more details.
+Public License at <https://www.gnu.org/licenses/> for more details.
 
 [REPO]: https://github.com/bulletmark/libinput-gestures/
 [DBUS]: https://github.com/bulletmark/dbus-action/
