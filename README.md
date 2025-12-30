@@ -35,7 +35,7 @@ https://github.com/bulletmark/libinput-gestures.
 ### INSTALLATION
 
 You need Python 3.8 or later, Python2 is not supported. You need the `libinput`
-package. The `libinput_tools` package must be installed if your system packages
+package. The `libinput-tools` package must be installed if your system packages
 the tools separately.
 
 You **must be a member of the _input_ group** to have permission

@@ -17,10 +17,10 @@ import subprocess
 import sys
 import threading
 from abc import ABC
+from collections.abc import Callable, Iterator, Sequence
 from io import TextIOWrapper
 from pathlib import Path
 from time import monotonic
-from collections.abc import Callable, Iterator, Sequence
 
 VERSION = '2.80'
 
@@ -653,7 +653,7 @@ conf_commands = {}
 
 def add_conf_command(func: Callable[[str], str | None]) -> None:
     "Add configuration command to command lookup table based on name"
-    conf_commands[re.sub('^conf_', '', func.__name__)] = func
+    conf_commands[re.sub('^conf_', '', func.__name__)] = func  # type: ignore
 
 
 @add_conf_command
@@ -857,7 +857,7 @@ def main() -> None:
     # Libinput changed the way in which it's utilities are called
     libvers, has_subcmd = get_libinput_vers()
     if not libvers:
-        sys.exit('libinput helper tools do not seem to be installed?')
+        sys.exit('The libinput-tools package does not seem to be installed?')
 
     if has_subcmd:
         cmd_debug_events = 'libinput debug-events'
@@ -949,9 +949,9 @@ def main() -> None:
     )
 
     # Store PIDs for potential kill
-    pidfile.write(f'{os.getpid()}\n{cmd.pid}\n')
-    pidfile.flush()
-    os.fsync(pidfile.fileno())
+    pidfile.write(f'{os.getpid()}\n{cmd.pid}\n')  # type: ignore
+    pidfile.flush()  # type: ignore
+    os.fsync(pidfile.fileno())  # type: ignore
 
     # Sit in a loop forever reading the libinput messages ..
     handler = None
