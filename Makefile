@@ -18,8 +18,7 @@ SHFILES = libinput-gestures-setup list-version-hashes libinput-dummy
 
 check:
 	ruff check $(PYFILES)
-	for f in $(PYFILES); do mypy $$f; done
-	pyright $(PYFILES)
+	ty check $(PYFILES)
 	shellcheck $(SHELLCHECK_OPTS) $(SHFILES)
 	md-link-checker
 

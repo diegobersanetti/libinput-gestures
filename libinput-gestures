@@ -26,8 +26,8 @@ VERSION = '2.80'
 
 dbus_imported = True
 try:
-    import dbus  # type: ignore
-    from dbus.mainloop.glib import DBusGMainLoop  # type: ignore
+    import dbus
+    from dbus.mainloop.glib import DBusGMainLoop
     from gi.repository import GLib  # type: ignore
 except ImportError:
     dbus_imported = False
@@ -604,7 +604,7 @@ class HOLD(GESTURE):
         "Complete setup of this gesture"
         # No timeout on HOLD gestures
         self.timeout = 0
-        self.delays = {}  # type: ignore
+        self.delays = {}
 
         # We parse the motions table to set up a table of delays for efficient
         # lookup at run time.
@@ -782,7 +782,7 @@ def read_conf(conffile: str, defname: str) -> str:
 
 def dbus_listener() -> None:
     "Listen on DBus"
-    DBusGMainLoop(set_as_default=True)  # type: ignore
+    DBusGMainLoop(set_as_default=True)
 
     def proc(busname: str, vals: dict[str, str], _) -> None:
         global session_locked
@@ -791,14 +791,14 @@ def dbus_listener() -> None:
                 session_locked = bool(val)
 
     # Listen to get session locked state
-    dbus.SystemBus().add_signal_receiver(  # type: ignore
+    dbus.SystemBus().add_signal_receiver(
         proc,
         'PropertiesChanged',
         'org.freedesktop.DBus.Properties',
         'org.freedesktop.login1',
     )
 
-    GLib.MainLoop().run()  # type: ignore
+    GLib.MainLoop().run()
 
 
 def gethash() -> str:
@@ -949,9 +949,9 @@ def main() -> None:
     )
 
     # Store PIDs for potential kill
-    pidfile.write(f'{os.getpid()}\n{cmd.pid}\n')  # type: ignore
-    pidfile.flush()  # type: ignore
-    os.fsync(pidfile.fileno())  # type: ignore
+    pidfile.write(f'{os.getpid()}\n{cmd.pid}\n')
+    pidfile.flush()
+    os.fsync(pidfile.fileno())
 
     # Sit in a loop forever reading the libinput messages ..
     handler = None
